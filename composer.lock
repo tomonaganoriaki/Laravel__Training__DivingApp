@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1c1a082f756cf9c9234c194fb61ce82",
+    "content-hash": "e3d27a0cfb97579d188964016e7f4569",
     "packages": [
         {
             "name": "brick/math",
@@ -5628,6 +5628,88 @@
     ],
     "packages-dev": [
         {
+            "name": "askdkc/breezejp",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/askdkc/breezejp.git",
+                "reference": "33174c9785f5f1fb3824bc76b7cb80127ee574b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/askdkc/breezejp/zipball/33174c9785f5f1fb3824bc76b7cb80127ee574b4",
+                "reference": "33174c9785f5f1fb3824bc76b7cb80127ee574b4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.4",
+                "nunomaduro/collision": "^6.0|^7.0",
+                "nunomaduro/larastan": "^2.0",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22|^2.0",
+                "phpstan/extension-installer": "^1.2",
+                "phpunit/phpunit": "^9.5.27|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Askdkc\\Breezejp\\BreezejpServiceProvider"
+                    ],
+                    "aliases": {
+                        "Breezejp": "Askdkc\\Breezejp\\Facades\\Breezejp"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Askdkc\\Breezejp\\": "src",
+                    "Askdkc\\Breezejp\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "askdkc",
+                    "email": "askdkc@users.noreply.github.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Breeze(とLaravel UIとJetstream)を標準の各種バリデーションや言語設定、タイムスタンプも含めて一瞬で日本語化対応＆言語切替機能も追加 / This package provides Japanese translation for Laravel Breeze, Laravel UI and Jetstream package with language switching feature. It also privides Japanese validation messages",
+            "homepage": "https://github.com/askdkc/breezejp",
+            "keywords": [
+                "breeze",
+                "japanese",
+                "jetstream",
+                "laravel",
+                "laravel ui",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/askdkc/breezejp/issues",
+                "source": "https://github.com/askdkc/breezejp/tree/v1.7.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/askdkc",
+                    "type": "github"
+                },
+                {
+                    "url": "https://ko-fi.com/askdkc",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2023-09-02T02:29:30+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.23.0",
             "source": {
@@ -8001,6 +8083,66 @@
                 }
             ],
             "time": "2023-08-23T06:24:34+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.16.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "reference": "cc7c991555a37f9fa6b814aa03af73f88026a83d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0",
+                "pestphp/pest": "^1.22",
+                "phpunit/phpunit": "^9.5.24",
+                "spatie/pest-plugin-test-time": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.16.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-08-23T09:04:39+00:00"
         },
         {
             "name": "symfony/yaml",
