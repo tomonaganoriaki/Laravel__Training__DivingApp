@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'addresses';
     protected $primaryKey = 'id';

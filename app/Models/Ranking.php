@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Ranking extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'rankings';
     protected $primaryKey = 'id';

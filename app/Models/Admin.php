@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Admin extends Authenticatable
 {
     use HasFactory;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'admins';
     protected $primaryKey = 'id';

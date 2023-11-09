@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'categories';
     protected $primaryKey = 'id';

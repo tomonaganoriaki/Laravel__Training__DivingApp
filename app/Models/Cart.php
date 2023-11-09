@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'carts';
     protected $primaryKey = 'id';

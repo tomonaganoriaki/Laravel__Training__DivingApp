@@ -11,7 +11,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use SoftDeletes;
     public $timestamps = true;
     protected $table = 'users';
     protected $primaryKey = 'id';
