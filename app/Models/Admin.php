@@ -7,8 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Admin extends Authenticatable
 {
+    use HasFactory;
+    use SoftDeletes;
+    public $timestamps = true;
     protected $table = 'admins';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','name','email','password','created_at','updated_at','deleted_at'];
-    use HasFactory;
+    protected $fillable = [
+        'id',
+        'name',
+        'email',
+        'password'
+    ];
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class, 'chat_id');
+    }
 }

@@ -11,7 +11,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    use SoftDeletes;
+    public $timestamps = true;
+    protected $table = 'users';
+    protected $primaryKey = 'id';
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'point',
     ];
 
     /**
@@ -42,4 +46,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'order_id');
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'cart_id');
+    }
+
+    public function address()
+    {
+        return $this->hasMany(Address::class, 'address_id');
+    }
+
+    public function chat()
+    {
+        return $this->hasMany(Chat::class, 'chat_id');
+    }
 }
