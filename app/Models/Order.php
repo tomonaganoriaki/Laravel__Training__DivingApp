@@ -21,6 +21,10 @@ class Order extends Model
         'order_date',
         'shipped_date',
     ];
+    protected $casts = [
+        'order_date' => 'datetime',
+        'shipped_date' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {

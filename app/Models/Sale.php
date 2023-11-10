@@ -19,6 +19,10 @@ class Sale extends Model
         'start_at',
         'end_at',
     ];
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+    ];
     
     public function products(): BelongsToMany
     {

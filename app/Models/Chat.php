@@ -17,14 +17,17 @@ class Chat extends Model
         'message',
         'sender_type',
     ];
+    protected $casts = [
+        'sender_type' => 'boolean'
+    ];
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id')->where('sender_type', true);
     }
     
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Admin::class, 'admin_id')->where('sender_type', false);
     }
 }
