@@ -13,14 +13,6 @@ class Order extends Model
     protected $table = 'orders';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'order_number',
-        'status',
-        'total_price',
-        'payment_method',
-        'order_date',
-        'shipped_date',
-    ];
     protected $casts = [
         'order_date' => 'datetime',
         'shipped_date' => 'datetime',

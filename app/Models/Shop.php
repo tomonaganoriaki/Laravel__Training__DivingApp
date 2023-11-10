@@ -13,5 +13,4 @@ class Shop extends Model
     protected $table = 'shops';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
 }

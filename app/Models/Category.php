@@ -13,7 +13,6 @@ class Category extends Model
     protected $table = 'categories';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
     
     public function products(): BelongsToMany
     {

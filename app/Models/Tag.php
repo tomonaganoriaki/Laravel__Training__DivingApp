@@ -13,7 +13,6 @@ class Tag extends Model
     protected $table = 'tags';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['name'];
     
     public function products(): BelongsToMany
     {

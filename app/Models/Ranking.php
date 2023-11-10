@@ -13,7 +13,6 @@ class Ranking extends Model
     protected $table = 'rankings';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['rank'];
     
     public function product(): HasMany
     {

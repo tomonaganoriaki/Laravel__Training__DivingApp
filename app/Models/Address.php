@@ -13,12 +13,6 @@ class Address extends Model
     protected $table = 'addresses';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'postal_code',
-        'prefecture',
-        'city',
-        'street'
-    ];
 
     public function user(): BelongsTo
     {

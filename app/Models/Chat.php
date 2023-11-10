@@ -13,10 +13,6 @@ class Chat extends Model
     protected $table = 'chats';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'message',
-        'sender_type',
-    ];
     protected $casts = [
         'sender_type' => 'boolean'
     ];

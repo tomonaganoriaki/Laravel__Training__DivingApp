@@ -13,7 +13,6 @@ class Movie extends Model
     protected $table = 'movies';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['path'];
     
     public function product(): BelongsTo
     {

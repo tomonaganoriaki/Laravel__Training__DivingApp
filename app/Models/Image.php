@@ -13,7 +13,6 @@ class Image extends Model
     protected $table = 'images';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = ['path'];
     
     public function product(): BelongsTo
     {

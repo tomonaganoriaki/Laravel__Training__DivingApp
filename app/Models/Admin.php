@@ -13,11 +13,6 @@ class Admin extends Authenticatable
     protected $table = 'admins';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'name',
-        'email',
-        'password'
-    ];
 
     public function chat(): HasMany
     {

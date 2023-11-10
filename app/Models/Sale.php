@@ -13,12 +13,6 @@ class Sale extends Model
     protected $table = 'sales';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'title',
-        'content',
-        'start_at',
-        'end_at',
-    ];
     protected $casts = [
         'start_at' => 'datetime',
         'end_at' => 'datetime',

@@ -13,12 +13,6 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-    protected $fillable = [
-        'name',
-        'description',
-        'price',
-        'stock'
-    ];
 
     public function ranking(): BelongsTo
     {
