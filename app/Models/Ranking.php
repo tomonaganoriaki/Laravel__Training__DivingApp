@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ranking extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
     protected $table = 'rankings';
     protected $primaryKey = 'id';
@@ -15,6 +16,7 @@ class Ranking extends Model
         'id',
         'rank'
     ];
+    
     public function product()
     {
         return $this->hasMany(Product::class, 'product_id'); 

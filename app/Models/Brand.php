@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
     protected $table = 'brands';
     protected $primaryKey = 'id';
@@ -15,6 +16,7 @@ class Brand extends Model
         'id',
         'name'
     ];
+    
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

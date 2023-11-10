@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sale extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
     protected $table = 'sales';
     protected $primaryKey = 'id';
@@ -18,6 +19,7 @@ class Sale extends Model
         'start_at',
         'end_at',
     ];
+    
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

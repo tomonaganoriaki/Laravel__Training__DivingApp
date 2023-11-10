@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
     protected $table = 'tags';
     protected $primaryKey = 'id';
@@ -15,6 +16,7 @@ class Tag extends Model
         'id',
         'name'
     ];
+    
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

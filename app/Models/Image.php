@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+
     public $timestamps = true;
     protected $table = 'images';
     protected $primaryKey = 'id';
@@ -15,6 +16,7 @@ class Image extends Model
         'id',
         'path'
     ];
+    
     public function product()
     {
     return $this->belongsTo(Product::class, 'product_id');
