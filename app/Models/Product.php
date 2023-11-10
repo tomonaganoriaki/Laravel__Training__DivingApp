@@ -20,17 +20,17 @@ class Product extends Model
         'stock'
     ];
 
-    public function ranking()
+    public function ranking(): BelongsTo
     {
         return $this->belongsTo(Ranking::class, 'ranking_id'); 
     }
 
-    public function image()
+    public function image(): HasMany
     {
         return $this->hasMany(Image::class, 'image_id'); 
     }
 
-    public function movie()
+    public function movie(): HasMany
     {
         return $this->hasMany(Movie::class, 'movie_id'); 
     }

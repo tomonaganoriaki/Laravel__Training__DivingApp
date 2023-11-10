@@ -22,7 +22,7 @@ class Order extends Model
         'shipped_date',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

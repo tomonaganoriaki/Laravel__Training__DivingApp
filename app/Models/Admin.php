@@ -19,7 +19,7 @@ class Admin extends Authenticatable
         'password'
     ];
 
-    public function chat()
+    public function chat(): HasMany
     {
         return $this->hasMany(Chat::class, 'chat_id');
     }

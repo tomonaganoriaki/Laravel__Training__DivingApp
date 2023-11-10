@@ -15,7 +15,7 @@ class Ranking extends Model
     protected $guarded = ['id'];
     protected $fillable = ['rank'];
     
-    public function product()
+    public function product(): HasMany
     {
         return $this->hasMany(Product::class, 'product_id'); 
     }

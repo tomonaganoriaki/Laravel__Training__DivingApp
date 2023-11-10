@@ -15,7 +15,7 @@ class Image extends Model
     protected $guarded = ['id'];
     protected $fillable = ['path'];
     
-    public function product()
+    public function product(): BelongsTo
     {
     return $this->belongsTo(Product::class, 'product_id');
     }
