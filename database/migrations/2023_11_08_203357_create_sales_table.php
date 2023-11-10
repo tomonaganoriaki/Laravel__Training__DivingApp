@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable(false);
-            $table->text('content')->nullable(false);
-            $table->dateTime('start_at')->nullable(false);
-            $table->dateTime('end_at')->nullable(false);
+            $table->string('title');
+            $table->text('content');
+            $table->dateTime('start_at');
+            $table->dateTime('end_at');
             $table->timestamps();
             $table->softDeletes(); 
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('path')->nullable(false);
+            $table->string('path');
             $table->foreignId('product_id')->constrained('products');
             $table->timestamps();
             $table->softDeletes(); 

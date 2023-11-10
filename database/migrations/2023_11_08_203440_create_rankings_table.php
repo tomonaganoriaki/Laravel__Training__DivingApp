@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rankings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained('products');
-            $table->integer('rank')->nullable(false);
+            $table->integer('rank');
             $table->timestamps();
             $table->softDeletes(); 
         });

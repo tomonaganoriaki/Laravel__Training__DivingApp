@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('admin_id')->constrained('admins');
-            $table->text('message')->nullable(false);
-            $table->integer('sender_type')->nullable(false);
+            $table->text('message');
+            $table->integer('sender_type');
             $table->timestamps();
             $table->softDeletes(); 
         });

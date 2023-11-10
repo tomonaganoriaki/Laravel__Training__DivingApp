@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('postal_code')->nullable(false);
-            $table->string('prefecture')->nullable(false);
-            $table->string('city')->nullable(false);
-            $table->string('street')->nullable(false);
+            $table->string('postal_code');
+            $table->string('prefecture');
+            $table->string('city');
+            $table->string('street');
             $table->timestamps();
             $table->softDeletes(); 
         });
