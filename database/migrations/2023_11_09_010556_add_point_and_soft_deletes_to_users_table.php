@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->id();
-            $table->string('name' , 50);
-            $table->string('email' , 50)->unique();
-            $table->string('password' , 1000);
-            $table->timestamps();
-            $table->softDeletes(); 
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('point')->default(0)->after('password');
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('point');
+            $table->dropSoftDeletes();
+        });
     }
 };

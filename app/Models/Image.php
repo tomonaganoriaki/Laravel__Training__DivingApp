@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; 
 
-class Admin extends Authenticatable
+class Image extends Model
 {
     use HasFactory, SoftDeletes;
-    
+
     public $timestamps = true;
-    protected $table = 'admins';
+    protected $table = 'images';
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
-
-    public function chat(): HasMany
+    
+    public function product(): BelongsTo
     {
-        return $this->hasMany(Chat::class, 'chat_id');
+    return $this->belongsTo(Product::class, 'product_id');
     }
 }
