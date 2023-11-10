@@ -12,8 +12,8 @@ class Sale extends Model
     public $timestamps = true;
     protected $table = 'sales';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'title',
         'content',
         'start_at',

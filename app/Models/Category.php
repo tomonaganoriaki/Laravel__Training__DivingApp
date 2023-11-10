@@ -12,10 +12,8 @@ class Category extends Model
     public $timestamps = true;
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'name'
-    ];
+    protected $guarded = ['id'];
+    protected $fillable = ['name'];
     
     public function products(): BelongsToMany
     {

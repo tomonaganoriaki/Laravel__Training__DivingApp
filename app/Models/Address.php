@@ -12,8 +12,8 @@ class Address extends Model
     public $timestamps = true;
     protected $table = 'addresses';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'postal_code',
         'prefecture',
         'city',

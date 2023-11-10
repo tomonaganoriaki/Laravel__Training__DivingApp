@@ -12,8 +12,8 @@ class Chat extends Model
     public $timestamps = true;
     protected $table = 'chats';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'message',
         'sender_type',
     ];

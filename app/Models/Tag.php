@@ -12,10 +12,8 @@ class Tag extends Model
     public $timestamps = true;
     protected $table = 'tags';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'name'
-    ];
+    protected $guarded = ['id'];
+    protected $fillable = ['name'];
     
     public function products(): BelongsToMany
     {

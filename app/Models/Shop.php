@@ -12,8 +12,6 @@ class Shop extends Model
     public $timestamps = true;
     protected $table = 'shops';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'name'
-    ];
+    protected $guarded = ['id'];
+    protected $fillable = ['name'];
 }

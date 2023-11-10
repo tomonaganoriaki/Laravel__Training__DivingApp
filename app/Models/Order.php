@@ -12,8 +12,8 @@ class Order extends Model
     public $timestamps = true;
     protected $table = 'orders';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'order_number',
         'status',
         'total_price',

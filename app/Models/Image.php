@@ -12,10 +12,8 @@ class Image extends Model
     public $timestamps = true;
     protected $table = 'images';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'path'
-    ];
+    protected $guarded = ['id'];
+    protected $fillable = ['path'];
     
     public function product()
     {

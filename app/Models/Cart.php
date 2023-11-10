@@ -12,9 +12,7 @@ class Cart extends Model
     public $timestamps = true;
     protected $table = 'carts';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id'
-    ];
+    protected $guarded = ['id'];
 
     public function user()
     {

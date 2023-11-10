@@ -12,10 +12,8 @@ class Ranking extends Model
     public $timestamps = true;
     protected $table = 'rankings';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'id',
-        'rank'
-    ];
+    protected $guarded = ['id'];
+    protected $fillable = ['rank'];
     
     public function product()
     {

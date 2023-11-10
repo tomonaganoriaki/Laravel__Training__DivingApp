@@ -12,8 +12,8 @@ class News extends Model
     public $timestamps = true;
     protected $table = 'news';
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
     protected $fillable = [
-        'id',
         'title',
         'content'
     ];
