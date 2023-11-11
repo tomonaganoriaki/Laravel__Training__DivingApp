@@ -12,20 +12,20 @@
                     <p class="text-green-500">{{ session('flash_message') }}</p>
                 </div>
             @endif
-            <button type="button" onclick="location.href='{{ route('admin.account.create') }}'">新規作成</button>
+            <div style="text-align: right; margin-bottom:20px">
+                <button class="button" type="button" onclick="location.href='{{ route('admin.account.create') }}'">管理者の新規作成</button>
+            </div>
             @foreach($admins as $admin)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <p>氏名　：{{ $admin->name }}</p>
                         <p>メール：{{ $admin->email }}</p>
-                        <p>作成日：{{ $admin->created_at }}</p>
-                    </div>
-                    <div class="p-6 text-gray-900">
-                        <button type="button" onclick="location.href='{{ route('admin.account.edit', $admin->id) }}'">編集</button>
+                        <p style="margin-bottom: 10px">作成日：{{ $admin->created_at }}</p>
+                        <button class="button" type="button" onclick="location.href='{{ route('admin.account.edit', $admin->id) }}'" style="margin-right: 6px">編集</button>
                         <form method="POST" action="{{ route('admin.account.destroy', $admin->id) }}" style="display: inline">
                             @csrf
                             @method('DELETE')
-                            <input type="submit" value="削除" onClick="delete_alert(event);return false;">
+                            <input class="button" type="submit" value="削除" onClick="delete_alert(event);return false;">
                         </form>
                         <script>
                             function delete_alert(e){

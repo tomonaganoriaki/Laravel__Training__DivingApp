@@ -10,15 +10,14 @@
             <form method="POST"  action="{{ route('admin.account.update', $admin->id) }}">
                 @csrf
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <p>氏名　：<input type="text" name="name" value="{{ $admin->name }}"></p>
-                        <p>メール：<input type="text" name="email" value="{{ $admin->email }}"></p>
-                        <p>パスワード：<input type="password" name="password" value=""></p>
-                        <p>作成日：{{ $admin->created_at }}</p>
+                    <div class="p-6 text-gray-900 pb-0">
+                        <p style="margin-bottom: 15px">氏名　　　 ：　<input type="text" name="name" value="{{ $admin->name }}"></p>
+                        <p style="margin-bottom: 15px">メール　　 ：　<input type="text" name="email" value="{{ $admin->email }}"></p>
+                        <p style="margin-bottom: 15px">パスワード ：　<input type="password" name="password" value=""></p>
                     </div>
                     <div class="p-6 text-gray-900">
-                        <input type="button" onclick="location.href='{{ route('admin.account.index') }}'" value="戻る">
-                        <input type="submit" value="更新">
+                        <input class="button" type="button" onclick="location.href='{{ route('admin.account.index') }}'" value="戻る" style="margin-right: 6px">
+                        <input class="button" type="submit" value="更新">
                     </div>
                 </div>
             </form>
