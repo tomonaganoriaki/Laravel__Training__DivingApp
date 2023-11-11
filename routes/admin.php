@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredAdminController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('admin.dashboard');
-
-Route::middleware('auth:admin')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredAdminController::class, 'create'])
@@ -81,5 +76,14 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+    
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/account', [AdminAccountController::class, 'index'])->name('account.index');
+    Route::get('/account/create', [AdminAccountController::class, 'create'])->name('account.create');
+    Route::post('/account', [AdminAccountController::class, 'store'])->name('account.store');
+    Route::delete('/account/{id}', [AdminAccountController::class, 'destroy'])->name('account.destroy');
 });
 
