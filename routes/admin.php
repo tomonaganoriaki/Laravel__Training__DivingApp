@@ -84,6 +84,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/account', [AdminAccountController::class, 'index'])->name('account.index');
     Route::get('/account/create', [AdminAccountController::class, 'create'])->name('account.create');
     Route::post('/account', [AdminAccountController::class, 'store'])->name('account.store');
+    Route::get('/account/{id}/edit', [AdminAccountController::class, 'edit'])->name('account.edit');
+    Route::post('/account/{id}', [AdminAccountController::class, 'update'])->name('account.update');
     Route::delete('/account/{id}', [AdminAccountController::class, 'destroy'])->name('account.destroy');
 });
 
