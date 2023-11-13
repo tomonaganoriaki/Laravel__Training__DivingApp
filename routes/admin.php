@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAccountController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,5 +63,19 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/account/{id}/edit', [AdminAccountController::class, 'edit'])->name('account.edit');
     Route::post('/account/{id}', [AdminAccountController::class, 'update'])->name('account.update');
     Route::delete('/account/{id}', [AdminAccountController::class, 'destroy'])->name('account.destroy');
+
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+    Route::get('/tag', [TagController::class, 'index'])->name('tag.index');
+    Route::get('/tag/create', [TagController::class, 'create'])->name('tag.create');
+    Route::post('/tag', [TagController::class, 'store'])->name('tag.store');
+    Route::get('/tag/{id}/edit', [TagController::class, 'edit'])->name('tag.edit');
+    Route::post('/tag/{id}', [TagController::class, 'update'])->name('tag.update');
+    Route::delete('/tag/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
 });
 
