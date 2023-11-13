@@ -30,7 +30,7 @@ class AdminAccountController extends Controller
 
         $admin = Admin::create([
             'name' => $request->name,
-            'email' => strtolower($request->email),
+            'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
