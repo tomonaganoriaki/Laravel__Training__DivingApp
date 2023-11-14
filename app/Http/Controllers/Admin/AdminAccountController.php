@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class AdminAccountController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $admins = Admin::all();
         return view('admin.account.index')->with('admins', $admins);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('admin.account.create');
     }
     
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -37,12 +39,12 @@ class AdminAccountController extends Controller
         session()->flash('flash_message', '管理者アカウントを作成しました。');
         return redirect()->route('admin.account.index');
     }
-    public function edit($id)
+    public function edit($id): View
     {
         $admin = Admin::findOrFail($id);
         return view('admin.account.edit')->with('admin', $admin);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $admin = Admin::findOrFail($id);
         $request->validate([
@@ -60,7 +62,7 @@ class AdminAccountController extends Controller
         return redirect()->route('admin.account.index');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $admin = Admin::findOrFail($id);
         $admin->delete();
