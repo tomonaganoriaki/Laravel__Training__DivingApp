@@ -5,21 +5,23 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $categories = Category::all();
         return view('admin.category.index')->with('categories', $categories);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('admin.category.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -31,13 +33,13 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    public function edit($id)
+    public function edit($id): View
     {
         $category = Category::findOrFail($id);
         return view('admin.category.edit')->with('category', $category);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         $request->validate([
@@ -50,7 +52,7 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $category = Category::findOrFail($id);
         $category->delete();
