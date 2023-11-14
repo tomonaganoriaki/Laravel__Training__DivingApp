@@ -23,6 +23,7 @@
                     </x-nav-link>
                     <x-nav-link :href="route('admin.tag.index')" :active="request()->routeIs('dashboard')">
                         {{'タグ管理'}}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.shop.index')" :active="request()->routeIs('dashboard')">
                         {{'店舗管理'}}
                     </x-nav-link>
