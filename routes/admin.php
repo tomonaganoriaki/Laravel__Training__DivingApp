@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAccountController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\ShopController;
+use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,5 +80,26 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/tag/{id}/edit', [TagController::class, 'edit'])->name('tag.edit')->where('id', '[0-9]+');
     Route::post('/tag/{id}', [TagController::class, 'update'])->name('tag.update')->where('id', '[0-9]+');
     Route::delete('/tag/{id}', [TagController::class, 'destroy'])->name('tag.destroy')->where('id', '[0-9]+');
+
+    Route::get('/shop', [ShopController::class, 'index'])->name('shop.index')->where('id', '[0-9]+');;
+    Route::get('/shop/create', [ShopController::class, 'create'])->name('shop.create')->where('id', '[0-9]+');;
+    Route::post('/shop', [ShopController::class, 'store'])->name('shop.store')->where('id', '[0-9]+');;
+    Route::get('/shop/{id}/edit', [ShopController::class, 'edit'])->name('shop.edit')->where('id', '[0-9]+');;
+    Route::post('/shop/{id}', [ShopController::class, 'update'])->name('shop.update')->where('id', '[0-9]+');;
+    Route::delete('/shop/{id}', [ShopController::class, 'destroy'])->name('shop.destroy')->where('id', '[0-9]+');;
+
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index')->where('id', '[0-9]+');;
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create')->where('id', '[0-9]+');;
+    Route::post('/news', [NewsController::class, 'store'])->name('news.store')->where('id', '[0-9]+');;
+    Route::get('/news/{id}/edit', [NewsController::class, 'edit'])->name('news.edit')->where('id', '[0-9]+');;
+    Route::post('/news/{id}', [NewsController::class, 'update'])->name('news.update')->where('id', '[0-9]+');;
+    Route::delete('/news/{id}', [NewsController::class, 'destroy'])->name('news.destroy')->where('id', '[0-9]+');;
+
+    Route::get('/brand', [BrandController::class, 'index'])->name('brand.index')->where('id', '[0-9]+');;
+    Route::get('/brand/create', [BrandController::class, 'create'])->name('brand.create')->where('id', '[0-9]+');;
+    Route::post('/brand', [BrandController::class, 'store'])->name('brand.store')->where('id', '[0-9]+');;
+    Route::get('/brand/{id}/edit', [BrandController::class, 'edit'])->name('brand.edit')->where('id', '[0-9]+');;
+    Route::post('/brand/{id}', [BrandController::class, 'update'])->name('brand.update')->where('id', '[0-9]+');;
+    Route::delete('/brand/{id}', [BrandController::class, 'destroy'])->name('brand.destroy')->where('id', '[0-9]+');;
 });
 

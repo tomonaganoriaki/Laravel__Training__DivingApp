@@ -23,6 +23,14 @@
                     </x-nav-link>
                     <x-nav-link :href="route('admin.tag.index')" :active="request()->routeIs('dashboard')">
                         {{'タグ管理'}}
+                    <x-nav-link :href="route('admin.shop.index')" :active="request()->routeIs('dashboard')">
+                        {{'店舗管理'}}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.news.index')" :active="request()->routeIs('dashboard')" class="text-center">
+                        {!! 'ニュース<br>管理' !!}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.brand.index')" :active="request()->routeIs('dashboard')" class="text-center">
+                        {!! 'ブランド<br>管理' !!}
                     </x-nav-link>
                 </div>
             </div>
