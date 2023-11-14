@@ -19,7 +19,7 @@
                         {!! '管理者<br>アカウント管理' !!}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.category.index')" :active="request()->routeIs('dashboard')" class="text-center">
-                        {!! 'カテゴリ<br>管理' !!}
+                        {!! 'カテゴリー<br>管理' !!}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.tag.index')" :active="request()->routeIs('dashboard')">
                         {{'タグ管理'}}

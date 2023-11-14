@@ -29,7 +29,7 @@ class BrandController extends Controller
         $brand = Brand::create([
             'name' => $request->name,
         ]);
-        session()->flash('flash_message', 'タグを作成しました。');
+        session()->flash('flash_message', 'ブランドを作成しました。');
         return redirect()->route('admin.brand.index');
     }
 
@@ -48,7 +48,7 @@ class BrandController extends Controller
         $brand->update([
             'name' => $request->name,
         ]);
-        session()->flash('flash_message', 'タグを更新しました。');
+        session()->flash('flash_message', 'ブランドを更新しました。');
         return redirect()->route('admin.brand.index');
     }
 
@@ -56,7 +56,7 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $brand->delete();
-        session()->flash('flash_message', 'タグを削除しました。');
+        session()->flash('flash_message', 'ブランドを削除しました。');
         return redirect()->route('admin.brand.index');
     }
 }

@@ -30,7 +30,7 @@ class NewsController extends Controller
             'title' => $request->title,
             'content' => $request->content,
         ]);
-        session()->flash('flash_message', 'タグを作成しました。');
+        session()->flash('flash_message', 'ニュースを作成しました。');
         return redirect()->route('admin.news.index');
     }
 
@@ -50,7 +50,7 @@ class NewsController extends Controller
             'title' => $request->title,
             'content' => $request->content,
         ]);
-        session()->flash('flash_message', 'タグを更新しました。');
+        session()->flash('flash_message', 'ニュースを更新しました。');
         return redirect()->route('admin.news.index');
     }
 
@@ -58,7 +58,7 @@ class NewsController extends Controller
     {
         $news = News::findOrFail($id);
         $news->delete();
-        session()->flash('flash_message', 'タグを削除しました。');
+        session()->flash('flash_message', 'ニュースを削除しました。');
         return redirect()->route('admin.news.index');
     }
 }

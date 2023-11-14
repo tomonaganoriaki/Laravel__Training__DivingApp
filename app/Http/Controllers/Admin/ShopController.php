@@ -29,7 +29,7 @@ class ShopController extends Controller
         $shop = Shop::create([
             'name' => $request->name,
         ]);
-        session()->flash('flash_message', 'タグを作成しました。');
+        session()->flash('flash_message', '店舗を作成しました。');
         return redirect()->route('admin.shop.index');
     }
 
@@ -39,7 +39,7 @@ class ShopController extends Controller
         return view('admin.shop.edit')->with('shop', $shop);
     }
 
-    public function update(Request $request, $id): View
+    public function update(Request $request, $id): RedirectResponse
     {
         $shop = Shop::findOrFail($id);
         $request->validate([
@@ -48,7 +48,7 @@ class ShopController extends Controller
         $shop->update([
             'name' => $request->name,
         ]);
-        session()->flash('flash_message', 'タグを更新しました。');
+        session()->flash('flash_message', '店舗を更新しました。');
         return redirect()->route('admin.shop.index');
     }
 
@@ -56,7 +56,7 @@ class ShopController extends Controller
     {
         $shop = Shop::findOrFail($id);
         $shop->delete();
-        session()->flash('flash_message', 'タグを削除しました。');
+        session()->flash('flash_message', '店舗を削除しました。');
         return redirect()->route('admin.shop.index');
     }
 }
