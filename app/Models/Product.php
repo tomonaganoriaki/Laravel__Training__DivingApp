@@ -15,48 +15,48 @@ class Product extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
-    public function ranking(): BelongsTo
+    public function ranking()
     {
         return $this->belongsTo(Ranking::class, 'ranking_id'); 
     }
 
-    public function image(): HasMany
+    public function image()
     {
         return $this->hasMany(Image::class, 'image_id'); 
     }
 
-    public function movie(): HasMany
+    public function movie()
     {
         return $this->hasMany(Movie::class, 'movie_id'); 
     }
 
-    public function sales(): BelongsToMany
+    public function sales()
     {
         return $this->belongsToMany(Sale::class);
     }
 
-    public function brands(): BelongsToMany
+    public function brands()
     {
         return $this->belongsToMany(Brand::class);
     }
 
-    public function carts(): BelongsToMany
+    public function carts()
     {
         return $this->belongsToMany(Cart::class);
     }
 
-    public function orders(): BelongsToMany
+    public function orders()
     {
         return $this->belongsToMany(Order::class)->withPivot('quantity', 'price');
     }
 
-    public function tags(): BelongsToMany
+    public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'product_tag');
     }
     
-    public function categories(): BelongsToMany
+    public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class , 'product_category');
     }
 }
