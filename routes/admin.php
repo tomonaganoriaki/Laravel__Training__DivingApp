@@ -103,11 +103,11 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/brand/{id}', [BrandController::class, 'update'])->name('brand.update')->where('id', '[0-9]+');
     Route::delete('/brand/{id}', [BrandController::class, 'destroy'])->name('brand.destroy')->where('id', '[0-9]+');
 
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index')->where('id', '[0-9]+');;
-    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create')->where('id', '[0-9]+');;
-    Route::post('/product', [ProductController::class, 'store'])->name('product.store')->where('id', '[0-9]+');;
-    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->where('id', '[0-9]+');;
-    Route::post('/product/{id}', [ProductController::class, 'update'])->name('product.update')->where('id', '[0-9]+');;
-    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy')->where('id', '[0-9]+');;
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index')->where('id', '[0-9]+');
+    Route::get('/product/create', [ProductController::class, 'create'])->name('product.create')->where('id', '[0-9]+');
+    Route::post('/product', [ProductController::class, 'store'])->name('product.store')->where('id', '[0-9]+');
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit')->where('id', '[0-9]+');
+    Route::post('/product/{id}', [ProductController::class, 'update'])->name('product.update')->where('id', '[0-9]+');
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy')->where('id', '[0-9]+');
 });
 
