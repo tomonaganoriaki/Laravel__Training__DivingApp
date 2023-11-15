@@ -110,5 +110,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/product/{id}', [ProductController::class, 'update'])->name('product.update')->where('id', '[0-9]+');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy')->where('id', '[0-9]+');
     Route::get('/csvExport', [ProductController::class, 'exportCsv'])->name('product.csvExport')->where('id', '[0-9]+');
+    Route::post('/csvImport', [ProductController::class, 'importCsv'])->name('product.csvImport')->where('id', '[0-9]+');
 });
 

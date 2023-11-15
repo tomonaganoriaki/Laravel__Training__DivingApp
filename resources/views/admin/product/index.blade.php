@@ -12,8 +12,12 @@
                     <p class="text-green-500">{{ session('flash_message') }}</p>
                 </div>
             @endif
-            <div style="text-align: right; margin-bottom:20px">
-                <button class="button" type="button" onclick="location.href='{{ route('admin.product.csvExport') }}'">CSVインポート</button>
+            <div class="flex" style="margin-bottom:20px; align-items:center; justify-content:end">
+                <form action="{{ route('admin.product.csvImport') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <label><input type="file" name="file" style="width:350px"></label>
+                    <button class="button">CSVインポート</button>
+                </form>
                 <button class="button" type="button" onclick="location.href='{{ route('admin.product.csvExport') }}'" style="margin-inline:7px 5px">CSVエクスポート</button>
                 <button class="button" type="button" onclick="location.href='{{ route('admin.product.create') }}'">新規作成</button>
             </div>

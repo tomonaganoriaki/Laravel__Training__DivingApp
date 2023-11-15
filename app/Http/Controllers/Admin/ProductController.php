@@ -169,4 +169,47 @@ class ProductController extends Controller
 
         return $response;
     }
+
+    public function importCsv(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:csv,txt',
+        ]);
+        $file = $request->file('file');
+        $path = $file->getRealPath();
+        $handle = fopen($path, 'r');
+        $header = fgetcsv($handle); 
+        while ($row = fgetcsv($handle)) {
+            $data = array_combine($header, $row);
+            $product = Product::find($data['id']) ?? new Product;
+            $product->name = $data['商品名'];
+            $product->description = $data['商品説明'];
+            $product->price = $data['価格'];
+            $product->stock = $data['在庫数'];
+            $product->save();
+            if (!empty($data['カテゴリー'])) {
+                $categories = explode(', ', $data['カテゴリー']);
+                $categoryIds = [];
+                foreach ($categories as $categoryName) {
+                    $category = Category::firstOrCreate(['name' => $categoryName]);
+                    $categoryIds[] = $category->id;
+                }
+                $product->categories()->sync($categoryIds);
+            }
+            if (!empty($data['タグ'])) {
+                $tags = explode(', ', $data['タグ']);
+                $tagIds = [];
+                foreach ($tags as $tagName) {
+                    $tag = Tag::firstOrCreate(['name' => $tagName]);
+                    $tagIds[] = $tag->id;
+                }
+                $product->tags()->sync($tagIds);
+            }
+        }
+        fclose($handle);
+        session()->flash('flash_message', 'CSVデータのインポートが完了しました。');
+        return redirect()->back();
+    }
+
+
 }
