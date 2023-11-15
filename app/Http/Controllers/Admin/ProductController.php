@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
@@ -126,5 +127,46 @@ class ProductController extends Controller
             session()->flash('flash_message', '商品の削除に失敗しました。');
             return redirect()->route('admin.product.index');
         }
+    }
+
+    public function exportCsv()
+    {
+        $products = Product::with('categories', 'tags')
+            ->select('id', 'name', 'description', 'price', 'stock')
+            ->get();
+
+        $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ'];
+        $csvData = [];
+
+        foreach ($products as $product) {
+            $categories = $product->categories->pluck('name')->implode(', ');
+            $tags = $product->tags->pluck('name')->implode(', ');
+
+            $csvData[] = [
+                $product->id,
+                $product->name,
+                $product->description,
+                $product->price,
+                $product->stock,
+                $categories,
+                $tags,
+            ];
+        }
+
+        $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $csvHeader);
+
+            foreach ($csvData as $row) {
+                fputcsv($handle, $row);
+            }
+
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="products.csv"',
+        ]);
+
+        return $response;
     }
 }
