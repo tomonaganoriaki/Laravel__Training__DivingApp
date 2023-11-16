@@ -23,9 +23,9 @@ class Product extends Model
         return $this->belongsTo(Ranking::class, 'ranking_id'); 
     }
 
-    public function image(): HasMany
+    public function images(): HasMany
     {
-        return $this->hasMany(Image::class, 'image_id'); 
+        return $this->hasMany(Image::class, 'product_id');
     }
 
     public function movie(): HasMany
