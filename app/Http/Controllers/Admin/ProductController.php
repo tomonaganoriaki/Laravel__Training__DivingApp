@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Tag;
 use App\Models\Category;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -47,7 +48,13 @@ class ProductController extends Controller
             ]);
             $isSaveProductCategory = $isSaveProduct->categories()->sync($request->category);
             $isSaveProductTag = $isSaveProduct->tags()->sync($request->tag);
-            if (!$isSaveProduct || !$isSaveProductCategory || !$isSaveProductTag) {
+            $img = $request->file('img_path');
+            $isSavePath = $img->store('img','public');
+            $imageTableData = new Image;
+            $imageTableData->path = $isSavePath;
+            $imageTableData->product_id = $isSaveProduct->id;
+            $isSaveImage = $imageTableData->save();
+            if (!$isSaveProduct || !$isSaveProductCategory || !$isSaveProductTag || !$isSavePath || !$isSaveImage) {
                 DB::rollBack();
                 session()->flash('flash_message', '商品の作成に失敗しました。');
                 return redirect()->route('admin.product.index');

@@ -6,7 +6,7 @@
     </x-slot>
     <div class="py-12 font-bold">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('admin.product.store') }}">
+            <form method="POST" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div>
                     <x-input-label for="name" value="新商品名" />
@@ -29,6 +29,8 @@
                             <input type="checkbox" name="tag[]" value="{{$tag->id}}" style="margin-inline:16px 5px">{{$tag->name}}
                         @endforeach
                     </div>
+                    <x-input-label for="image" value="商品画像" style="margin-block: 20px 6px;" />
+                    <input type="file" name="img_path">
                 </div>
                 <div class="flex items-center justify-end mt-4">
                     <x-secondary-button onclick="location.href='{{ route('admin.product.index') }}'">
