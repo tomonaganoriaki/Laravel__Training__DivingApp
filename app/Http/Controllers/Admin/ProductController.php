@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
@@ -118,11 +119,13 @@ class ProductController extends Controller
         DB::beginTransaction();
         try{
             $product = Product::findOrFail($id);
+            $productImgPath = Image::where('product_id', $id)->pluck('path')->first();
+            $isDeleteStorageImg =  Storage::disk('public')->delete($productImgPath);
+            $isDeleteProductImgPath = $product->images()->delete(); 
             $isDeleteProduct = $product->delete();
             $isDeleteProductCategory = $product->categories()->detach();
             $isDeleteProductTag = $product->tags()->detach();
-            $isDeleteProductImgPath = $product->images()->delete();
-            if (!$isDeleteProduct || !$isDeleteProductCategory || !$isDeleteProductTag || !$isDeleteProductImgPath) {
+            if (!$isDeleteProduct || !$isDeleteProductCategory || !$isDeleteProductTag || !$isDeleteProductImgPath || !$isDeleteStorageImg) {
                 DB::rollBack();
                 session()->flash('flash_message', '商品の削除に失敗しました。');
                 return redirect()->route('admin.product.index');
