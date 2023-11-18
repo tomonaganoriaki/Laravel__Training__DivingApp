@@ -158,11 +158,11 @@ class ProductController extends Controller
 
     public function exportCsv()
     {
-        $products = Product::with('categories', 'tags')
+        $products = Product::with('categories', 'tags' , 'images')
             ->select('id', 'name', 'description', 'price', 'stock')
             ->get();
 
-        $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ'];
+        $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ', '画像パス'];
         $csvData = [];
 
         foreach ($products as $product) {
@@ -177,6 +177,7 @@ class ProductController extends Controller
                 $product->stock,
                 $categories,
                 $tags,
+                $product->images->pluck('path')->implode(', '),
             ];
         }
 
