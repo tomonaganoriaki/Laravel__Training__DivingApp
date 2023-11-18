@@ -22,7 +22,7 @@
                 <button class="button" type="button" onclick="location.href='{{ route('admin.product.create') }}'">新規作成</button>
             </div>
             @foreach($products as $product)
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex items-center">
                     <div class="p-6 text-gray-900">
                         <p>商品名　 ： {{ $product->name }}</p>
                         <p>商品説明 ： {{ $product->description }}</p>
@@ -53,6 +53,11 @@
                                 document.deleteform.submit();
                             }
                         </script>
+                    </div>
+                    <div>
+                        @foreach($product->images as $image)
+                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 165px; height: 165px; margin-left:20px;">
+                        @endforeach
                     </div>
                 </div>
             @endforeach

@@ -17,7 +17,7 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::with(['categories', 'tags'])->get();
+        $products = Product::with(['categories', 'tags', 'images'])->get();
         return view('admin.product.index')->with('products', $products);
     }
 
@@ -49,12 +49,12 @@ class ProductController extends Controller
             $isSaveProductCategory = $isSaveProduct->categories()->sync($request->category);
             $isSaveProductTag = $isSaveProduct->tags()->sync($request->tag);
             $img = $request->file('img_path');
-            $isSavePath = $img->store('img','public');
-            $imageTableData = new Image;
-            $imageTableData->path = $isSavePath;
-            $imageTableData->product_id = $isSaveProduct->id;
-            $isSaveImage = $imageTableData->save();
-            if (!$isSaveProduct || !$isSaveProductCategory || !$isSaveProductTag || !$isSavePath || !$isSaveImage) {
+            $imgPath = $img->store('img','public');
+            $imgTableData = new Image;
+            $imgTableData->path = $imgPath;
+            $imgTableData->product_id = $isSaveProduct->id;
+            $isSaveImg = $imgTableData->save();
+            if (!$isSaveProduct || !$isSaveProductCategory || !$isSaveProductTag || !$isSaveImg) {
                 DB::rollBack();
                 session()->flash('flash_message', '商品の作成に失敗しました。');
                 return redirect()->route('admin.product.index');
