@@ -162,7 +162,7 @@ class ProductController extends Controller
             ->select('id', 'name', 'description', 'price', 'stock')
             ->get();
 
-        $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ', '画像パス'];
+        $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ', '画像パス（変更厳禁）'];
         $csvData = [];
 
         foreach ($products as $product) {
