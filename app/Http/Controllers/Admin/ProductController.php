@@ -90,23 +90,23 @@ class ProductController extends Controller
                 'category' => ['required'],
                 'tag' => ['required'],
             ]); 
-        $product = Product::findOrFail($id);
-        $isUpdateProduct = $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'stock' => $request->stock
-        ]);
-        $isUpdateProductCategory = $product->categories()->sync($request->category);
-        $isUpdateProductTag = $product->tags()->sync($request->tag);
-        if (!$isUpdateProduct || !$isUpdateProductCategory || !$isUpdateProductTag) {
-            DB::rollBack();
-            session()->flash('flash_message', '商品の更新に失敗しました。');
+            $product = Product::findOrFail($id);
+            $isUpdateProduct = $product->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => $request->price,
+                'stock' => $request->stock
+            ]);
+            $isUpdateProductCategory = $product->categories()->sync($request->category);
+            $isUpdateProductTag = $product->tags()->sync($request->tag);
+            if (!$isUpdateProduct || !$isUpdateProductCategory || !$isUpdateProductTag) {
+                DB::rollBack();
+                session()->flash('flash_message', '商品の更新に失敗しました。');
+                return redirect()->route('admin.product.index');
+            }
+            DB::commit();
+            session()->flash('flash_message', '商品を更新しました。');
             return redirect()->route('admin.product.index');
-        }
-        DB::commit();
-        session()->flash('flash_message', '商品を更新しました。');
-        return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
             DB::rollBack();
             session()->flash('flash_message', '商品の更新に失敗しました。');
