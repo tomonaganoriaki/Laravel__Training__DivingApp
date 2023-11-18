@@ -121,7 +121,8 @@ class ProductController extends Controller
             $isDeleteProduct = $product->delete();
             $isDeleteProductCategory = $product->categories()->detach();
             $isDeleteProductTag = $product->tags()->detach();
-            if (!$isDeleteProduct || !$isDeleteProductCategory || !$isDeleteProductTag) {
+            $isDeleteProductImgPath = $product->images()->delete();
+            if (!$isDeleteProduct || !$isDeleteProductCategory || !$isDeleteProductTag || !$isDeleteProductImgPath) {
                 DB::rollBack();
                 session()->flash('flash_message', '商品の削除に失敗しました。');
                 return redirect()->route('admin.product.index');
