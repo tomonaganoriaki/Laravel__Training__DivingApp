@@ -91,6 +91,22 @@ class ProductController extends Controller
                 'tag' => ['required'],
             ]); 
             $product = Product::findOrFail($id);
+            $updateImg = $request->file('updateImage');
+            if ($updateImg) {
+                $productImg = Image::where('product_id', $id)->pluck('path')->first();
+                $isDeleteStorageImg =  Storage::disk('public')->delete($productImg);
+                $isDeleteRecordImg = $product->images()->delete(); 
+                $imgPath = $updateImg->store('img','public');
+                $imgTableData = new Image;
+                $imgTableData->path = $imgPath;
+                $imgTableData->product_id = $product->id;
+                $isSaveImg = $imgTableData->save();
+                if (!$isDeleteStorageImg || !$isDeleteRecordImg || !$isSaveImg) {
+                    DB::rollBack();
+                    session()->flash('flash_message', '画像更新が失敗したため商品の更新に失敗しました。');
+                    return redirect()->route('admin.product.index');
+                }
+            }
             $isUpdateProduct = $product->update([
                 'name' => $request->name,
                 'description' => $request->description,

@@ -7,7 +7,7 @@
 
     <div class="py-12 font-bold">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST"  action="{{ route('admin.product.update', $product->id) }}">
+            <form method="POST"  action="{{ route('admin.product.update', $product->id) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 pb-0">
@@ -36,6 +36,12 @@
                                     style="margin-inline:16px 5px">{{$tag->name}}
                             @endforeach
                         </div>
+                        <x-input-label for="image" value="画像（変更時のみ選択）" style="margin-top: 20px"/>
+                        <div class="flex" style="align-items: center;">
+                            <input type="file" name="updateImage" style="margin-inline:16px 5px">
+                            @foreach($product->images as $image)
+                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 180px; height: 100px; margin-left:20px;">
+                        @endforeach
                     </div>
                     <div class="p-6 text-gray-900">
                         <input class="button" type="button" onclick="location.href='{{ route('admin.product.index') }}'" value="戻る" style="margin-right: 6px">

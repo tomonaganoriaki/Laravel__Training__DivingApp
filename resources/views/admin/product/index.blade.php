@@ -56,7 +56,7 @@
                     </div>
                     <div>
                         @foreach($product->images as $image)
-                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 165px; height: 165px; margin-left:20px;">
+                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 300px; height: 165px; margin-left:20px;">
                         @endforeach
                     </div>
                 </div>
