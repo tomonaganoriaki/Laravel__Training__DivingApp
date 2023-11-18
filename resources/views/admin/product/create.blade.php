@@ -23,14 +23,14 @@
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
-                    <x-input-label for="tag" value="【必須】タグ" style="margin-top: 20px"/>
+                    <x-input-label for="tag" value="【必須】タグ" style="margin-block: 32px 5px"/>
                     <div class="flex" style="align-items: center;">
                         @foreach($tags as $tag)
                             <input type="checkbox" name="tag[]" value="{{$tag->id}}" style="margin-inline:16px 5px">{{$tag->name}}
                         @endforeach
                     </div>
-                    <x-input-label for="image" value="【必須】商品画像" style="margin-block: 20px 6px;" />
-                    <input type="file" name="img_path">
+                    <x-input-label for="image" value="【必須】商品画像" style="margin-block: 30px 7px;" />
+                    <input type="file" name="img_path" style="margin-left: 15px; margin-top:4px">
                 </div>
                 <div class="flex items-center justify-end mt-4">
                     <x-secondary-button onclick="location.href='{{ route('admin.product.index') }}'">

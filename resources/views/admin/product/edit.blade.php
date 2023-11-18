@@ -28,7 +28,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <x-input-label for="tag" value="タグ" style="margin-top: 20px"/>
+                        <x-input-label for="tag" value="タグ" style="margin-block: 35px 3px"/>
                         <div class="flex" style="align-items: center;">
                             @foreach($tags as $tag)
                                 <input type="checkbox" name="tag[]" value="{{$tag->id}}"
@@ -36,14 +36,14 @@
                                     style="margin-inline:16px 5px">{{$tag->name}}
                             @endforeach
                         </div>
-                        <x-input-label for="image" value="画像（変更時のみ選択）" style="margin-top: 20px"/>
+                        <x-input-label for="image" value="画像（変更時のみ選択）" style="margin-block: 35px -24px"/>
                         <div class="flex" style="align-items: center;">
                             <input type="file" name="updateImage" style="margin-inline:16px 5px">
                             @foreach($product->images as $image)
-                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 180px; height: 100px; margin-left:20px;">
+                            <img src="{{ asset('storage/' . $image->path) }}" style="width: 150px; height: 100px; margin-left:20px;">
                         @endforeach
                     </div>
-                    <div class="p-6 text-gray-900">
+                    <div class="p-6 text-gray-900" style="float:right">
                         <input class="button" type="button" onclick="location.href='{{ route('admin.product.index') }}'" value="戻る" style="margin-right: 6px">
                         <input class="button" type="submit" value="更新">
                     </div>
