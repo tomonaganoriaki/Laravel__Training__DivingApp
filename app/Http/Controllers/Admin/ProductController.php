@@ -19,7 +19,23 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::with(['categories', 'tags', 'images'])->get();
-        return view('admin.product.index')->with('products', $products);
+        $keyword = request()->input('keyword');
+        $upper = request()->input('upper');
+        $lower = request()->input('lower'); 
+        if (!empty($keyword)) {
+            $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
+        }
+        if(!empty($upper)) {
+            $products = Product::where('price', '<=', $upper)->get();
+        }
+        if(!empty($lower)) {
+            $products = Product::where('price', '>=', $lower)->get();
+        }
+        return view('admin.product.index')
+        ->with('products', $products)
+        ->with('keyword', $keyword)
+        ->with('upper', $upper)
+        ->with('lower', $lower);
     }
 
     public function create(): View
