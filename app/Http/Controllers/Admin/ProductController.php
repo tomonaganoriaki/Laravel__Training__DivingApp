@@ -18,25 +18,34 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::with(['categories', 'tags', 'images'])->get();
-        $keyword = request()->input('keyword');
-        $upper = request()->input('upper');
-        $lower = request()->input('lower'); 
-        if (!empty($keyword)) {
-            $products = Product::where('name', 'like', '%' . $keyword . '%')->get();
-        }
-        if(!empty($upper)) {
-            $products = Product::where('price', '<=', $upper)->get();
-        }
-        if(!empty($lower)) {
-            $products = Product::where('price', '>=', $lower)->get();
-        }
-        return view('admin.product.index')
-        ->with('products', $products)
-        ->with('keyword', $keyword)
-        ->with('upper', $upper)
-        ->with('lower', $lower);
+    $query = Product::with(['categories', 'tags', 'images']);
+
+    $keyword = request()->input('keyword');
+    $upper = request()->input('upper');
+    $lower = request()->input('lower'); 
+    $category = request()->input('category');
+
+    if (!empty($keyword)) {
+        $query->where('name', 'like', '%' . $keyword . '%');
     }
+    if(!empty($upper)) {
+        $query->where('price', '<=', $upper);
+    }
+    if(!empty($lower)) {
+        $query->where('price', '>=', $lower);
+    }
+    if(!empty($category)){
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('category_id', $category);
+        });
+    }
+
+    $products = $query->get();
+    $categories = Category::all();
+
+    return view('admin.product.index', compact('products', 'categories', 'keyword', 'upper', 'lower'));
+}
+
 
     public function create(): View
     {

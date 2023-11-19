@@ -27,6 +27,11 @@
                     <input placeholder="KW部分一致検索" type="text" name="keyword" value="{{$keyword}}">
                     <input placeholder="料金上限を入力" type="text" name="upper" value="{{$upper}}">
                     <input placeholder="料金下限を入力" type="text" name="lower" value="{{$lower}}">
+                    <select name="category">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" name='category'>{{ $category->name }}</option>
+                        @endforeach
+                    </select>
                     <input class="button" type="submit" value="検索">
                 </form>
                 <form action="{{ route('admin.product.index') }}" method="GET">
