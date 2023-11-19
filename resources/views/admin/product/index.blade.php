@@ -21,7 +21,7 @@
                 <button class="button" type="button" onclick="location.href='{{ route('admin.product.csvExport') }}'" style="margin-inline:7px 5px">CSVエクスポート</button>
                 <button class="button" type="button" onclick="location.href='{{ route('admin.product.create') }}'">新規作成</button>
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center justify-end" style="margin-block: 30px">
                 <form action="{{ route('admin.product.index') }}" method="GET">
                     @csrf
                     <input placeholder="KW部分一致検索" type="text" name="keyword" value="{{$keyword}}">
@@ -29,14 +29,14 @@
                     <input placeholder="料金下限を入力" type="text" name="lower" value="{{$lower}}">
                     <select name="category">
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}" name='category'>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if($category->id == $selectCategory) selected @endif>{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <input class="button" type="submit" value="検索">
+                    <input class="button mx-1.5" type="submit" value="検索">
                 </form>
                 <form action="{{ route('admin.product.index') }}" method="GET">
                     @csrf
-                    <input class="button mx-1.5" type="submit" value="全商品表示">
+                    <input class="button" type="submit" value="全商品表示">
                 </form>
             </div>
             @foreach($products as $product)
