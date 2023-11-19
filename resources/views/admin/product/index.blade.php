@@ -28,6 +28,7 @@
                     <input placeholder="料金上限を入力" type="text" name="upper" value="{{$upper}}">
                     <input placeholder="料金下限を入力" type="text" name="lower" value="{{$lower}}">
                     <select name="category">
+                        <option value="">全カテゴリー</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}" @if($category->id == $selectCategory) selected @endif>{{ $category->name }}</option>
                         @endforeach
