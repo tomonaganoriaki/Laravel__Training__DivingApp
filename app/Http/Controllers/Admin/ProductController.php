@@ -72,19 +72,14 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
             ]);
-            $isSaveProductCategory = $isSaveProduct->categories()->sync($request->category);
-            $isSaveProductTag = $isSaveProduct->tags()->sync($request->tag);
+            $isSaveProduct->categories()->sync($request->category);
+            $isSaveProduct->tags()->sync($request->tag);
             $img = $request->file('img_path');
             $imgPath = $img->store('img','public');
             $imgTableData = new Image;
             $imgTableData->path = $imgPath;
             $imgTableData->product_id = $isSaveProduct->id;
-            $isSaveImg = $imgTableData->save();
-            if (!$isSaveProduct || !$isSaveProductCategory || !$isSaveProductTag || !$isSaveImg) {
-                DB::rollBack();
-                session()->flash('flash_message', '商品の作成に失敗しました。');
-                return redirect()->route('admin.product.index');
-            }
+            $imgTableData->save();
             DB::commit();
             session()->flash('flash_message', '商品「' . $isSaveProduct->name . '」を作成しました。');
             return redirect()->route('admin.product.index');
@@ -119,32 +114,22 @@ class ProductController extends Controller
             $updateImg = $request->file('updateImage');
             if ($updateImg) {
                 $productImg = Image::where('product_id', $id)->pluck('path')->first();
-                $isDeleteStorageImg =  Storage::disk('public')->delete($productImg);
-                $isDeleteRecordImg = $product->images()->delete(); 
+                Storage::disk('public')->delete($productImg);
+                $product->images()->delete(); 
                 $imgPath = $updateImg->store('img','public');
                 $imgTableData = new Image;
                 $imgTableData->path = $imgPath;
                 $imgTableData->product_id = $product->id;
-                $isSaveImg = $imgTableData->save();
-                if (!$isDeleteStorageImg || !$isDeleteRecordImg || !$isSaveImg) {
-                    DB::rollBack();
-                    session()->flash('flash_message', '画像更新が失敗したため商品の更新に失敗しました。');
-                    return redirect()->route('admin.product.index');
-                }
+                $imgTableData->save();
             }
-            $isUpdateProduct = $product->update([
+            $product->update([
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
                 'stock' => $request->stock
             ]);
-            $isUpdateProductCategory = $product->categories()->sync($request->category);
-            $isUpdateProductTag = $product->tags()->sync($request->tag);
-            if (!$isUpdateProduct || !$isUpdateProductCategory || !$isUpdateProductTag) {
-                DB::rollBack();
-                session()->flash('flash_message', '商品の更新に失敗しました。');
-                return redirect()->route('admin.product.index');
-            }
+            $product->categories()->sync($request->category);
+            $product->tags()->sync($request->tag);
             DB::commit();
             session()->flash('flash_message', '商品を更新しました。');
             return redirect()->route('admin.product.index');
@@ -161,16 +146,11 @@ class ProductController extends Controller
         try{
             $product = Product::findOrFail($id);
             $productImgPath = Image::where('product_id', $id)->pluck('path')->first();
-            $isDeleteStorageImg =  Storage::disk('public')->delete($productImgPath);
-            $isDeleteProductImgPath = $product->images()->delete(); 
-            $isDeleteProduct = $product->delete();
-            $isDeleteProductCategory = $product->categories()->detach();
-            $isDeleteProductTag = $product->tags()->detach();
-            if (!$isDeleteProduct || !$isDeleteProductCategory || !$isDeleteProductTag || !$isDeleteProductImgPath || !$isDeleteStorageImg) {
-                DB::rollBack();
-                session()->flash('flash_message', '商品の削除に失敗しました。');
-                return redirect()->route('admin.product.index');
-            }
+            Storage::disk('public')->delete($productImgPath);
+            $product->images()->delete(); 
+            $product->delete();
+            $product->categories()->detach();
+            $product->tags()->detach();
             DB::commit();
             session()->flash('flash_message', '商品を削除しました。');
             return redirect()->route('admin.product.index');
