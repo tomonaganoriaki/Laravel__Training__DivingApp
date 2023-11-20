@@ -16,14 +16,14 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $query = Product::with(['categories', 'tags', 'images']);
 
-        $keyword = request()->input('keyword');
-        $upper = request()->input('upper');
-        $lower = request()->input('lower'); 
-        $selectCategory = request()->input('category');
+        $keyword = $request->keyword;
+        $upper = $request->upper;
+        $lower = $request->lower; 
+        $selectCategory = $request->selectCategory;
 
         if (!empty($keyword)) {
             $query->where('name', 'like', '%' . $keyword . '%');
