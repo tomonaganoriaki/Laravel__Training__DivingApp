@@ -85,6 +85,7 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');
             } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error($e->getMessage());
             session()->flash('flash_message', '商品の作成に失敗しました。');
             return redirect()->route('admin.product.index');
         }
@@ -135,6 +136,7 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error($e->getMessage());
             session()->flash('flash_message', '商品の更新に失敗しました。');
             return redirect()->route('admin.product.index');
         }
@@ -156,6 +158,7 @@ class ProductController extends Controller
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error($e->getMessage());
             session()->flash('flash_message', '商品の削除に失敗しました。');
             return redirect()->route('admin.product.index');
         }
