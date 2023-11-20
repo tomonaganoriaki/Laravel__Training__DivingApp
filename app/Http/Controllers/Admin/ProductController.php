@@ -13,18 +13,17 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
     public function index(Request $request): View
     {
         $query = Product::with(['categories', 'tags', 'images']);
-
         $keyword = $request->keyword;
         $upper = $request->upper;
         $lower = $request->lower; 
         $selectCategory = $request->selectCategory;
-
         if (!empty($keyword)) {
             $query->where('name', 'like', '%' . $keyword . '%');
         }
@@ -39,10 +38,8 @@ class ProductController extends Controller
                 $query->where('category_id', $selectCategory);
             });
         }
-
         $products = $query->get();
         $categories = Category::all();
-
         return view('admin.product.index', compact('products', 'categories', 'keyword', 'upper', 'lower', 'selectCategory'));
     }
 
@@ -169,14 +166,11 @@ class ProductController extends Controller
         $products = Product::with('categories', 'tags' , 'images')
             ->select('id', 'name', 'description', 'price', 'stock')
             ->get();
-
         $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ', '画像パス（変更厳禁）'];
         $csvData = [];
-
         foreach ($products as $product) {
             $categories = $product->categories->pluck('name')->implode(', ');
             $tags = $product->tags->pluck('name')->implode(', ');
-
             $csvData[] = [
                 $product->id,
                 $product->name,
@@ -188,21 +182,17 @@ class ProductController extends Controller
                 $product->images->pluck('path')->implode(', '),
             ];
         }
-
         $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $csvHeader);
-
             foreach ($csvData as $row) {
                 fputcsv($handle, $row);
             }
-
             fclose($handle);
         }, 200, [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="products.csv"',
         ]);
-
         return $response;
     }
 
@@ -210,45 +200,43 @@ class ProductController extends Controller
     {
         $request->validate([
             'file' => 'required|file|mimes:csv,txt',
-            'name' => ['required', 'string', 'max:20'],
-            'description' => ['required', 'string', 'max:1000'],
-            'price' => ['required', 'integer'],
-            'stock' => ['required', 'integer'],
-            'category' => ['required'],
-            'tag' => ['required'],
         ]);
         DB::beginTransaction();
-        try{
+        try {
             $file = $request->file('file');
             $path = $file->getRealPath();
             $handle = fopen($path, 'r');
             $header = fgetcsv($handle); 
             while ($row = fgetcsv($handle)) {
                 $data = array_combine($header, $row);
+                $validator = Validator::make($data, [
+                    '商品名' => 'required|string|max:20',
+                    '商品説明' => 'required|string|max:1000',
+                    '価格' => 'required|integer',
+                    '在庫数' => 'required|integer',
+                    'カテゴリー' => 'required|string',
+                    'タグ' => 'required|string',
+                ]);
                 $product = Product::find($data['id']) ?? new Product;
                 $product->name = $data['商品名'];
                 $product->description = $data['商品説明'];
                 $product->price = $data['価格'];
                 $product->stock = $data['在庫数'];
                 $product->save();
-                if (!empty($data['カテゴリー'])) {
-                    $categories = explode(', ', $data['カテゴリー']);
-                    $categoryIds = [];
-                    foreach ($categories as $categoryName) {
-                        $category = Category::firstOrCreate(['name' => $categoryName]);
-                        $categoryIds[] = $category->id;
-                    }
-                    $product->categories()->sync($categoryIds);
+                $categories = explode(', ', $data['カテゴリー']);
+                $categoryIds = [];
+                foreach ($categories as $categoryName) {
+                    $category = Category::firstOrCreate(['name' => $categoryName]);
+                    $categoryIds[] = $category->id;
                 }
-                if (!empty($data['タグ'])) {
-                    $tags = explode(', ', $data['タグ']);
-                    $tagIds = [];
-                    foreach ($tags as $tagName) {
-                        $tag = Tag::firstOrCreate(['name' => $tagName]);
-                        $tagIds[] = $tag->id;
-                    }
-                    $product->tags()->sync($tagIds);
+                $product->categories()->sync($categoryIds);
+                $tags = explode(', ', $data['タグ']);
+                $tagIds = [];
+                foreach ($tags as $tagName) {
+                    $tag = Tag::firstOrCreate(['name' => $tagName]);
+                    $tagIds[] = $tag->id;
                 }
+                $product->tags()->sync($tagIds);
             }
             fclose($handle);
             DB::commit();
