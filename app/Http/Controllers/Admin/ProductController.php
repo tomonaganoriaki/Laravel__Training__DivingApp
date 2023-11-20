@@ -51,7 +51,7 @@ class ProductController extends Controller
     {
         $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.product.create')->with('tags', $tags)->with('categories', $categories);
+        return view('admin.product.create', compact('tags', 'categories'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -100,7 +100,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.product.edit')->with('product', $product)->with('tags', $tags)->with('categories', $categories);
+        return view('admin.product.edit', compact('product', 'tags', 'categories'));
     }
 
     public function update(Request $request, $id): RedirectResponse
