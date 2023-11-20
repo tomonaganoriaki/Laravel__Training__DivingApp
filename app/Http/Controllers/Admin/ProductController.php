@@ -91,7 +91,7 @@ class ProductController extends Controller
         }
     }
 
-    public function edit($id): View
+    public function edit(int $id): View
     {
         $product = Product::findOrFail($id);
         $tags = Tag::all();
@@ -142,7 +142,7 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         DB::beginTransaction();
         try{
