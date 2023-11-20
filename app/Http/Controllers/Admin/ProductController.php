@@ -56,16 +56,16 @@ class ProductController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:20'],
+            'description' => ['required', 'string', 'max:1000'],
+            'price' => ['required', 'integer'],
+            'stock' => ['required', 'integer'],
+            'category' => ['required'],
+            'tag' => ['required'],
+        ]); 
         DB::beginTransaction();
         try{
-            $request->validate([
-                'name' => ['required', 'string', 'max:20'],
-                'description' => ['required', 'string', 'max:1000'],
-                'price' => ['required', 'integer'],
-                'stock' => ['required', 'integer'],
-                'category' => ['required'],
-                'tag' => ['required'],
-            ]); 
             $isSaveProduct = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
@@ -105,16 +105,16 @@ class ProductController extends Controller
 
     public function update(Request $request, $id): RedirectResponse
     {
+        $request->validate([
+            'name' => ['required', 'string', 'max:20'],
+            'description' => ['required', 'string', 'max:1000'],
+            'price' => ['required', 'integer'],
+            'stock' => ['required', 'integer'],
+            'category' => ['required'],
+            'tag' => ['required'],
+        ]); 
         DB::beginTransaction();
         try{
-            $request->validate([
-                'name' => ['required', 'string', 'max:20'],
-                'description' => ['required', 'string', 'max:1000'],
-                'price' => ['required', 'integer'],
-                'stock' => ['required', 'integer'],
-                'category' => ['required'],
-                'tag' => ['required'],
-            ]); 
             $product = Product::findOrFail($id);
             $updateImg = $request->file('updateImage');
             if ($updateImg) {
