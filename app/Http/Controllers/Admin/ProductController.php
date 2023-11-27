@@ -24,6 +24,7 @@ class ProductController extends Controller
         $upper = $request->upper;
         $lower = $request->lower; 
         $selectCategory = $request->selectCategory;
+
         if (!empty($keyword)) {
             $query->where('name', 'like', '%' . $keyword . '%');
         }
@@ -38,6 +39,7 @@ class ProductController extends Controller
                 $query->where('category_id', $selectCategory);
             });
         }
+
         $products = $query->get();
         $categories = Category::all();
         return view('admin.product.index', compact('products', 'categories', 'keyword', 'upper', 'lower', 'selectCategory'));
@@ -61,6 +63,7 @@ class ProductController extends Controller
             'category' => ['required'],
             'tag' => ['required'],
         ]); 
+
         DB::beginTransaction();
         try{
             $savedProduct = Product::create([
@@ -71,13 +74,16 @@ class ProductController extends Controller
             ]);
             $savedProduct->categories()->sync($request->category);
             $savedProduct->tags()->sync($request->tag);
+
             $img = $request->file('img_path');
             $imgPath = $img->store('img','public');
             $imgTableData = new Image;
             $imgTableData->path = $imgPath;
             $imgTableData->product_id = $savedProduct->id;
             $imgTableData->save();
+
             DB::commit();
+
             session()->flash('flash_message', '商品「' . $savedProduct->name . '」を作成しました。');
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
@@ -106,9 +112,11 @@ class ProductController extends Controller
             'category' => ['required'],
             'tag' => ['required'],
         ]); 
+
         DB::beginTransaction();
         try{
             $product = Product::findOrFail($id);
+
             $updateImg = $request->file('updateImage');
             if ($updateImg) {
                 $productImg = Image::where('product_id', $id)->pluck('path')->first();
@@ -128,7 +136,9 @@ class ProductController extends Controller
             ]);
             $product->categories()->sync($request->category);
             $product->tags()->sync($request->tag);
+
             DB::commit();
+
             session()->flash('flash_message', '商品を更新しました。');
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
@@ -146,11 +156,14 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $productImgPath = Image::where('product_id', $id)->pluck('path')->first();
             Storage::disk('public')->delete($productImgPath);
+
             $product->images()->delete(); 
             $product->delete();
             $product->categories()->detach();
             $product->tags()->detach();
+
             DB::commit();
+
             session()->flash('flash_message', '商品を削除しました。');
             return redirect()->route('admin.product.index');
         } catch (\Exception $e) {
@@ -166,6 +179,7 @@ class ProductController extends Controller
         $products = Product::with('categories', 'tags' , 'images')
             ->select('id', 'name', 'description', 'price', 'stock')
             ->get();
+
         $csvHeader = ['id', '商品名', '商品説明', '価格', '在庫数', 'カテゴリー', 'タグ', '画像パス（変更厳禁）'];
         $csvData = [];
         foreach ($products as $product) {
@@ -182,6 +196,7 @@ class ProductController extends Controller
                 $product->images->pluck('path')->implode(', '),
             ];
         }
+
         $response = new StreamedResponse(function () use ($csvHeader, $csvData) {
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $csvHeader);
@@ -201,6 +216,7 @@ class ProductController extends Controller
         $request->validate([
             'file' => 'required|file|mimes:csv,txt',
         ]);
+
         DB::beginTransaction();
         try {
             $file = $request->file('file');
@@ -217,6 +233,7 @@ class ProductController extends Controller
                     'カテゴリー' => 'required|string',
                     'タグ' => 'required|string',
                 ]);
+                
                 $product = Product::find($data['id']) ?? new Product;
                 $product->name = $data['商品名'];
                 $product->description = $data['商品説明'];
@@ -239,7 +256,9 @@ class ProductController extends Controller
                 $product->tags()->sync($tagIds);
             }
             fclose($handle);
+
             DB::commit();
+            
             session()->flash('flash_message', 'CSVデータのインポートが完了しました。');
             return redirect()->back();
         } catch (\Exception $e) {
