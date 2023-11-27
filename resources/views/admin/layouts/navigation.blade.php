@@ -33,6 +33,9 @@
                     <x-nav-link :href="route('admin.brand.index')" :active="request()->routeIs('dashboard')" class="text-center">
                         {!! 'ブランド<br>管理' !!}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.product.index')" :active="request()->routeIs('dashboard')" class="text-center">
+                        {{'商品管理'}}
+                    </x-nav-link>
                 </div>
             </div>
 
