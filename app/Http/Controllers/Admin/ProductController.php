@@ -80,7 +80,7 @@ class ProductController extends Controller
             DB::commit();
             session()->flash('flash_message', '商品「' . $savedProduct->name . '」を作成しました。');
             return redirect()->route('admin.product.index');
-            } catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             \Log::error($e->getMessage());
             session()->flash('flash_message', '商品の作成に失敗しました。');
