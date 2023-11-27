@@ -63,22 +63,22 @@ class ProductController extends Controller
         ]); 
         DB::beginTransaction();
         try{
-            $isSaveProduct = Product::create([
+            $savedProduct = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
                 'stock' => $request->stock,
             ]);
-            $isSaveProduct->categories()->sync($request->category);
-            $isSaveProduct->tags()->sync($request->tag);
+            $savedProduct->categories()->sync($request->category);
+            $savedProduct->tags()->sync($request->tag);
             $img = $request->file('img_path');
             $imgPath = $img->store('img','public');
             $imgTableData = new Image;
             $imgTableData->path = $imgPath;
-            $imgTableData->product_id = $isSaveProduct->id;
+            $imgTableData->product_id = $savedProduct->id;
             $imgTableData->save();
             DB::commit();
-            session()->flash('flash_message', '商品「' . $isSaveProduct->name . '」を作成しました。');
+            session()->flash('flash_message', '商品「' . $savedProduct->name . '」を作成しました。');
             return redirect()->route('admin.product.index');
             } catch (\Exception $e) {
             DB::rollBack();
